@@ -1,4 +1,4 @@
-# Weekly Product Review Pulse — Architecture
+# Groww Weekly Review Pulse — Architecture
 
 This document describes the technical architecture for the Groww Weekly Review Pulse: an MCP-orchestrated pipeline that ingests Google Play Store reviews, derives themes and action ideas, and delivers a weekly report via Google Docs and Gmail.
 
@@ -41,7 +41,7 @@ flowchart TB
         AUDIT[Run ledger]
     end
 
-    SCHED[Scheduler<br/>e.g. cron / Cloud Scheduler]
+    SCHED[GitHub Actions<br/>scheduled / workflow_dispatch]
 
     PS --> PSMCP
     PSMCP -->|tool: fetch reviews| ORCH
@@ -113,49 +113,56 @@ flowchart LR
 | **Rendering** | `pulse-agent/render/` | Builds Google Docs batch-update requests and Gmail HTML/text bodies from `PulseReport` schema. |
 | **Delivery client** | `pulse-agent/delivery/` | Thin MCP client wrappers for Docs and Gmail tools; no direct API calls. |
 | **Run ledger** | `pulse-agent/audit/` | Persists run metadata, idempotency keys, and delivery identifiers. |
-| **CLI / scheduler entry** | `pulse-agent/cli/` | `pulse run`, `pulse backfill`, `pulse status`; invoked by cron or Cloud Scheduler. |
+| **CLI / scheduler entry** | `pulse-agent/cli.py` | `pulse run`, `pulse backfill`, `pulse status`, `pulse dry-run`; invoked by GitHub Actions or locally. |
 
 ---
 
 ## 4. Recommended repository layout
 
 ```
-AI AGENT/
-├── context.md
-├── architecture.md
-├── docs/
-│   └── problemstatement.txt
+groww-weekly-review-pulse/
+├── .github/
+│   └── workflows/
+│       └── weekly-pulse.yml        # Scheduled and manual GitHub Actions pipeline
+├── config/
+│   ├── groww.yaml                  # Product config: app ID, LLM, doc ID, recipients
+│   └── mcp-servers.json            # MCP server config (no secrets)
+├── data/
+│   └── runs/                       # Run ledger JSONL files (gitignored contents)
+├── docs/                           # Architecture and other documentation
+├── frontend/                       # React + TypeScript monitoring dashboard (Vite)
+│   ├── src/
+│   │   ├── pages/                  # Dashboard, RunHistory, ReportViewer
+│   │   ├── components/
+│   │   ├── services/               # API client
+│   │   ├── types/
+│   │   └── utils/
+│   ├── package.json
+│   └── vite.config.ts
 ├── mcp-servers/
-│   └── play-store-reviews/
-│       ├── pyproject.toml          # or package.json
-│       ├── src/
-│       │   ├── server.py           # MCP server entrypoint
-│       │   ├── scraper.py          # Play Store fetch logic
-│       │   ├── models.py           # Review, FetchRequest, FetchResult
-│       │   └── cache.py            # Optional local cache by app + date range
-│       └── README.md
+│   └── play-store-reviews/         # In-repo Play Store MCP server package
+│       ├── pyproject.toml
+│       └── src/
 ├── pulse-agent/
 │   ├── pyproject.toml
 │   ├── src/pulse/
 │   │   ├── orchestrator.py
 │   │   ├── cli.py
 │   │   ├── config.py
-│   │   ├── ingest/
-│   │   ├── analysis/
-│   │   ├── summarize/
-│   │   ├── render/
-│   │   ├── delivery/
+│   │   ├── ingest/                 # adapter.py, pii.py
+│   │   ├── analysis/               # embeddings.py, reduce.py, cluster.py
+│   │   ├── summarize/              # __init__.py, prompts.py
+│   │   ├── render/                 # docs.py, email.py
+│   │   ├── delivery/               # mcp_http_client.py, docs_client.py, gmail_client.py
 │   │   ├── audit/
 │   │   └── models/                 # Review, Cluster, PulseReport, RunRecord
 │   └── tests/
-├── config/
-│   ├── groww.yaml                  # Product config: app ID, doc ID, recipients
-│   └── mcp-servers.json            # MCP server launch commands (no secrets)
-└── data/
-    └── runs/                       # Run ledger (gitignored in prod)
+├── scripts/                        # Utility scripts
+├── .env.example                    # Environment variable reference
+└── README.md
 ```
 
-Google Docs MCP and Gmail MCP are **external dependencies** configured in the MCP host—not vendored in this repo unless explicitly added later.
+Google Docs and Gmail are accessed through the **Railway-hosted MCP server** (HTTP) — not vendored as local stdio servers. The `PULSE_MCP_SERVER_URL` environment variable points the delivery clients at the Railway endpoint.
 
 ---
 
@@ -470,12 +477,12 @@ Example: `Groww — Week 2026-W23`
 product: groww
 display_name: Groww
 play_store:
-  app_id: "<groww_package_id>"
+  app_id: "com.groww.in"
 review_window_weeks: 10
 analysis:
   max_themes: 5
   embedding_model: BAAI/bge-small-en-v1.5
-  llm_model: gpt-4o-mini
+  llm_model: llama-3.3-70b-versatile  # Groq model
   max_tokens_per_run: 80000
 delivery:
   google_doc:
@@ -485,13 +492,15 @@ delivery:
     stakeholders:
       - product-leads@example.com
       - support-leads@example.com
-    default_mode: draft  # draft | send
+    default_mode: draft  # draft | send | skip
 schedule:
   timezone: Asia/Kolkata
   cron: "0 6 * * 1"  # Monday 06:00 IST
 ```
 
 ### 10.2 MCP host config (`config/mcp-servers.json`)
+
+The Play Store Reviews MCP server runs as a local stdio process. Google Docs and Gmail are **not** launched as local processes; they are accessed via the Railway-hosted MCP server over HTTP.
 
 ```json
 {
@@ -503,17 +512,26 @@ schedule:
     },
     "google-docs": {
       "command": "<path-to-docs-mcp>",
+      "args": [],
       "env": { "GOOGLE_APPLICATION_CREDENTIALS": "<path-outside-repo>" }
     },
     "gmail": {
       "command": "<path-to-gmail-mcp>",
+      "args": [],
       "env": { "GOOGLE_APPLICATION_CREDENTIALS": "<path-outside-repo>" }
     }
   }
 }
 ```
 
-Secrets and OAuth tokens live **only** in MCP server environment—not in the pulse agent repository.
+**Delivery transport:** At runtime, `DocsClient` and `GmailClient` in `pulse-agent/delivery/` communicate exclusively through `McpHttpClient`, which POSTs to `PULSE_MCP_SERVER_URL` (the Railway endpoint). The two endpoints called are:
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /append_to_doc` | Append weekly section to Google Doc |
+| `POST /create_email_draft` | Create Gmail draft (or send, if `PULSE_ALLOW_SEND=true`) |
+
+Google OAuth credentials are held by the Railway server only — never in the pulse-agent repository.
 
 ---
 
@@ -567,8 +585,8 @@ run_id, product, iso_week, stage, duration_ms, review_count, cluster_count, toke
 ### 13.2 Weekly schedule
 
 - **Cadence:** Once per week per product (Groww only initially)
-- **Suggested time:** Monday 06:00 IST (`Asia/Kolkata`)
-- **Implementation:** OS cron, GitHub Actions scheduled workflow, or Cloud Scheduler invoking `pulse run`
+- **Time:** Monday 06:00 IST (`Asia/Kolkata`) — cron `30 0 * * 1` (UTC) in GitHub Actions
+- **Implementation:** GitHub Actions (`weekly-pulse.yml`) — runs on schedule or via `workflow_dispatch` with configurable `iso_week`, `email_mode`, and `dry_run` inputs. The run ledger is uploaded as a GitHub Actions artifact (90-day retention) on every execution.
 
 ---
 
@@ -604,18 +622,20 @@ Designed for later expansion without breaking the initial Groww / Play Store con
 | Additional products | New `config/{product}.yaml`; parameterize `product` in orchestrator |
 | App Store reviews | New MCP server or extend ingestion adapter; same analysis pipeline |
 | More delivery channels | New MCP server (e.g. Slack); add renderer + delivery client module |
-| Dashboard | Out of scope; Doc remains source of truth |
+| Dashboard API backend | Current React dashboard reads static run artifacts; replace with a live FastAPI/Flask backend reading from the run ledger |
+| Week-over-week diff | Compare theme distributions across consecutive weeks; flag significant changes |
 
 ---
 
 ## 17. Summary
 
-The Weekly Review Pulse is a **modular MCP-native pipeline**:
+The Groww Weekly Review Pulse is a **modular MCP-native pipeline**:
 
-1. **Play Store Reviews MCP** (built here) supplies normalized Groww reviews.
-2. The **pulse agent** clusters and summarizes them with embeddings + LLM, with strict quote validation and PII handling.
-3. **Google Docs MCP** appends one idempotent section per ISO week to the canonical Groww pulse document.
-4. **Gmail MCP** sends a teaser email linking to that section.
-5. A **run ledger** enforces idempotency and auditability across Doc and email delivery.
+1. **Play Store Reviews MCP** (built here) supplies normalized Groww reviews via a local stdio MCP server.
+2. The **pulse agent** clusters and summarizes them using sentence embeddings (BAAI/bge-small-en-v1.5), UMAP + HDBSCAN, and Groq (`llama-3.3-70b-versatile`) — with strict quote validation and PII handling.
+3. The **Railway MCP server** (HTTP) receives the rendered report and appends it to Google Docs via `POST /append_to_doc`, and creates a Gmail draft via `POST /create_email_draft`.
+4. **GitHub Actions** (`weekly-pulse.yml`) schedules the pipeline every Monday at 06:00 IST and exposes a `workflow_dispatch` interface for ad-hoc runs. Run ledger artifacts are retained for 90 days.
+5. A **React + Vite dashboard** (deployed on Vercel) visualizes run history, pipeline metrics, and report content from the generated run artifacts.
+6. A **run ledger** in `data/runs/` enforces idempotency and auditability across Doc and email delivery.
 
-This separation keeps credentials and external API concerns in MCP servers while the agent focuses on analysis, rendering, and orchestration.
+This separation keeps Google OAuth credentials in the Railway MCP server, Play Store scraping in the in-repo MCP package, and analysis/orchestration logic in the pulse agent — each layer independently testable and replaceable.
