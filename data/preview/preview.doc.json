@@ -1,0 +1,321 @@
+{
+  "heading_text": "Groww — Week 2026-W23 (2026-03-31 – 2026-06-08)",
+  "doc_content": {
+    "heading_text": "Groww — Week 2026-W23 (2026-03-31 – 2026-06-08)",
+    "sections": [
+      {
+        "heading_level": null,
+        "heading": null,
+        "body_type": "paragraph",
+        "body": "Period covered: 2026-03-31 to 2026-06-08 (10-week rolling window). Reviews fetched: 1240, after deduplication: 1180, clustered into 18 themes, top 3 selected for this report. Generated at 2026-06-08T06:30:00+05:30."
+      },
+      {
+        "heading_level": 3,
+        "heading": "Top themes",
+        "body_type": "bullets",
+        "bullets": [
+          "App performance & bugs — Lag, crashes during trading hours; login/session timeouts. (size: 142, avg rating: 2.1)",
+          "Customer support friction — Slow responses; unresolved tickets. (size: 98, avg rating: 1.8)",
+          "UX & feature gaps — Confusing navigation for portfolio insights; missing advanced analytics. (size: 76, avg rating: 2.5)"
+        ]
+      },
+      {
+        "heading_level": 3,
+        "heading": "Real user quotes",
+        "body_type": "bullets",
+        "bullets": [
+          "\"The app freezes exactly when the market opens, very frustrating.\"",
+          "\"Login keeps failing during peak hours.\"",
+          "\"Support takes days to reply and does not solve the issue.\"",
+          "\"Chat support is useless, no one responds.\"",
+          "\"Good for beginners but lacks detailed analysis tools.\"",
+          "\"Portfolio view is hard to find and understand.\""
+        ]
+      },
+      {
+        "heading_level": 3,
+        "heading": "Action ideas",
+        "body_type": "bullets",
+        "bullets": [
+          "Stabilize peak-time performance: Scale infra during market hours; improve crash visibility.",
+          "Improve support SLA visibility: Expected response time in-app; ticket status tracking.",
+          "Enhance power-user features: Advanced portfolio analytics; clearer investments navigation."
+        ]
+      },
+      {
+        "heading_level": 3,
+        "heading": "Who this helps",
+        "body_type": "bullets",
+        "bullets": [
+          "Product team: Focus on app stability during trading hours and UX improvements.",
+          "Support team: Prepare for increased ticket volume around login issues.",
+          "Leadership: Addressing top 3 themes could improve retention by 15-20%."
+        ]
+      }
+    ]
+  },
+  "batch_update_requests": {
+    "requests": [
+      {
+        "insertText": {
+          "location": {
+            "index": 1
+          },
+          "text": "Groww — Week 2026-W23 (2026-03-31 – 2026-06-08)\nPeriod covered: 2026-03-31 to 2026-06-08 (10-week rolling window). Reviews fetched: 1240, after deduplication: 1180, clustered into 18 themes, top 3 selected for this report. Generated at 2026-06-08T06:30:00+05:30.\nTop themes\n• App performance & bugs — Lag, crashes during trading hours; login/session timeouts. (size: 142, avg rating: 2.1)\n• Customer support friction — Slow responses; unresolved tickets. (size: 98, avg rating: 1.8)\n• UX & feature gaps — Confusing navigation for portfolio insights; missing advanced analytics. (size: 76, avg rating: 2.5)\nReal user quotes\n• \"The app freezes exactly when the market opens, very frustrating.\"\n• \"Login keeps failing during peak hours.\"\n• \"Support takes days to reply and does not solve the issue.\"\n• \"Chat support is useless, no one responds.\"\n• \"Good for beginners but lacks detailed analysis tools.\"\n• \"Portfolio view is hard to find and understand.\"\nAction ideas\n• Stabilize peak-time performance: Scale infra during market hours; improve crash visibility.\n• Improve support SLA visibility: Expected response time in-app; ticket status tracking.\n• Enhance power-user features: Advanced portfolio analytics; clearer investments navigation.\nWho this helps\n• Product team: Focus on app stability during trading hours and UX improvements.\n• Support team: Prepare for increased ticket volume around login issues.\n• Leadership: Addressing top 3 themes could improve retention by 15-20%.\n"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "paragraphStyle": {
+            "namedStyleType": "HEADING_2"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 49,
+            "endIndex": 50
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 264,
+            "endIndex": 265
+          },
+          "paragraphStyle": {
+            "namedStyleType": "HEADING_3"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 275,
+            "endIndex": 276
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 390,
+            "endIndex": 391
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 484,
+            "endIndex": 485
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 607,
+            "endIndex": 608
+          },
+          "paragraphStyle": {
+            "namedStyleType": "HEADING_3"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 624,
+            "endIndex": 625
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 693,
+            "endIndex": 694
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 736,
+            "endIndex": 737
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 798,
+            "endIndex": 799
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 844,
+            "endIndex": 845
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 902,
+            "endIndex": 903
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 953,
+            "endIndex": 954
+          },
+          "paragraphStyle": {
+            "namedStyleType": "HEADING_3"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 966,
+            "endIndex": 967
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1060,
+            "endIndex": 1061
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1149,
+            "endIndex": 1150
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1242,
+            "endIndex": 1243
+          },
+          "paragraphStyle": {
+            "namedStyleType": "HEADING_3"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1257,
+            "endIndex": 1258
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1338,
+            "endIndex": 1339
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      },
+      {
+        "updateParagraphStyle": {
+          "range": {
+            "startIndex": 1411,
+            "endIndex": 1412
+          },
+          "paragraphStyle": {
+            "namedStyleType": "NORMAL_TEXT"
+          },
+          "fields": "namedStyleType"
+        }
+      }
+    ]
+  }
+}

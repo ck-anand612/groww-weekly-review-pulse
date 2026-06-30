@@ -1,0 +1,76 @@
+{
+  "run_id": "run-2026-W22",
+  "product": "groww",
+  "iso_week": "2026-W22",
+  "status": "completed",
+  "started_at": "2026-06-01T06:00:00+05:30",
+  "completed_at": "2026-06-01T06:11:20+05:30",
+  "updated_at": "2026-06-01T06:11:20+05:30",
+  "stages": {
+    "ingest": {
+      "status": "completed",
+      "started_at": "2026-06-01T06:00:00+05:30",
+      "completed_at": "2026-06-01T06:00:38+05:30",
+      "duration_ms": 38000,
+      "metadata": {}
+    },
+    "analyze": {
+      "status": "completed",
+      "started_at": "2026-06-01T06:00:38+05:30",
+      "completed_at": "2026-06-01T06:02:55+05:30",
+      "duration_ms": 137000,
+      "metadata": {}
+    },
+    "summarize": {
+      "status": "completed",
+      "started_at": "2026-06-01T06:02:55+05:30",
+      "completed_at": "2026-06-01T06:07:30+05:30",
+      "duration_ms": 275000,
+      "metadata": {}
+    },
+    "render": {
+      "status": "completed",
+      "started_at": "2026-06-01T06:07:30+05:30",
+      "completed_at": "2026-06-01T06:07:32+05:30",
+      "duration_ms": 2000,
+      "metadata": {}
+    },
+    "deliver": {
+      "status": "completed",
+      "started_at": "2026-06-01T06:07:32+05:30",
+      "completed_at": "2026-06-01T06:11:20+05:30",
+      "duration_ms": 228000,
+      "metadata": {}
+    }
+  },
+  "delivery": {
+    "doc": {
+      "document_id": "1srRnz0TTVoNgSil62PsWU8Vl7hbXxxHf746f0V8YfF8",
+      "heading_text": "Groww — Week 2026-W22",
+      "heading_anchor": "",
+      "revision_id": "rev-w22-001",
+      "appended": true
+    },
+    "email": {
+      "mode": "draft",
+      "message_id": "msg-w22-001",
+      "recipients": [
+        "ck.anand6@gmail.com"
+      ],
+      "sent_at": "2026-06-01T06:11:18+05:30"
+    }
+  },
+  "ingest": {
+    "review_count": 1180,
+    "mcp_fetch_at": "2026-06-01T06:00:00+05:30"
+  },
+  "analysis": {
+    "model": "llama-3.3-70b-versatile",
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "token_usage": {
+      "prompt_tokens": 11800,
+      "completion_tokens": 3900
+    }
+  },
+  "error": null
+}

@@ -1,0 +1,59 @@
+{
+  "run_id": "run-2026-W21",
+  "product": "groww",
+  "iso_week": "2026-W21",
+  "status": "failed",
+  "started_at": "2026-05-25T06:00:00+05:30",
+  "completed_at": null,
+  "updated_at": "2026-05-25T06:00:00+05:30",
+  "stages": {
+    "ingest": {
+      "status": "completed",
+      "started_at": "2026-05-25T06:00:00+05:30",
+      "completed_at": "2026-05-25T06:00:42+05:30",
+      "duration_ms": 42000,
+      "metadata": {}
+    },
+    "analyze": {
+      "status": "failed",
+      "started_at": "2026-05-25T06:00:42+05:30",
+      "completed_at": "2026-05-25T06:05:12+05:30",
+      "duration_ms": 270000,
+      "metadata": {
+        "error": "UMAP convergence timeout"
+      }
+    },
+    "summarize": {
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "duration_ms": null,
+      "metadata": {}
+    },
+    "render": {
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "duration_ms": null,
+      "metadata": {}
+    },
+    "deliver": {
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "duration_ms": null,
+      "metadata": {}
+    }
+  },
+  "delivery": null,
+  "ingest": {
+    "review_count": 1350,
+    "mcp_fetch_at": "2026-05-25T06:00:00+05:30"
+  },
+  "analysis": null,
+  "error": {
+    "stage": "analyze",
+    "message": "UMAP convergence timeout after 270s",
+    "type": "TimeoutError"
+  }
+}

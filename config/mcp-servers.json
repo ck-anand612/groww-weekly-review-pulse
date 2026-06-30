@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "play-store-reviews": {
+      "command": "python",
+      "args": ["-m", "play_store_reviews.server"],
+      "cwd": "./mcp-servers/play-store-reviews"
+    },
+    "google-docs": {
+      "command": "<path-to-docs-mcp>",
+      "args": [],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "<path-outside-repo>"
+      }
+    },
+    "gmail": {
+      "command": "<path-to-gmail-mcp>",
+      "args": [],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "<path-outside-repo>"
+      }
+    }
+  }
+}

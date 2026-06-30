@@ -1,0 +1,76 @@
+{
+  "run_id": "run-2026-W23",
+  "product": "groww",
+  "iso_week": "2026-W23",
+  "status": "completed",
+  "started_at": "2026-06-17T14:06:32+05:30",
+  "completed_at": "2026-06-17T14:19:12+05:30",
+  "updated_at": "2026-06-17T14:19:12+05:30",
+  "stages": {
+    "ingest": {
+      "status": "completed",
+      "started_at": "2026-06-17T14:06:32+05:30",
+      "completed_at": "2026-06-17T14:07:24+05:30",
+      "duration_ms": 52000,
+      "metadata": {}
+    },
+    "analyze": {
+      "status": "completed",
+      "started_at": "2026-06-17T14:07:24+05:30",
+      "completed_at": "2026-06-17T14:10:17+05:30",
+      "duration_ms": 173000,
+      "metadata": {}
+    },
+    "summarize": {
+      "status": "completed",
+      "started_at": "2026-06-17T14:10:17+05:30",
+      "completed_at": "2026-06-17T14:14:52+05:30",
+      "duration_ms": 275000,
+      "metadata": {}
+    },
+    "render": {
+      "status": "completed",
+      "started_at": "2026-06-17T14:14:52+05:30",
+      "completed_at": "2026-06-17T14:14:54+05:30",
+      "duration_ms": 2000,
+      "metadata": {}
+    },
+    "deliver": {
+      "status": "completed",
+      "started_at": "2026-06-17T14:14:54+05:30",
+      "completed_at": "2026-06-17T14:19:12+05:30",
+      "duration_ms": 258000,
+      "metadata": {}
+    }
+  },
+  "delivery": {
+    "doc": {
+      "document_id": "1srRnz0TTVoNgSil62PsWU8Vl7hbXxxHf746f0V8YfF8",
+      "heading_text": "Groww — Week 2026-W23 (2026-03-31 – 2026-06-08)",
+      "heading_anchor": "",
+      "revision_id": "rev-w23-001",
+      "appended": true
+    },
+    "email": {
+      "mode": "draft",
+      "message_id": "msg-w23-001",
+      "recipients": [
+        "ck.anand6@gmail.com"
+      ],
+      "sent_at": "2026-06-17T14:19:12+05:30"
+    }
+  },
+  "ingest": {
+    "review_count": 1413,
+    "mcp_fetch_at": "2026-06-17T14:06:32+05:30"
+  },
+  "analysis": {
+    "model": "llama-3.3-70b-versatile",
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "token_usage": {
+      "prompt_tokens": 13200,
+      "completion_tokens": 4500
+    }
+  },
+  "error": null
+}
